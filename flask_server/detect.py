@@ -14,7 +14,12 @@ from utils.plots import plot_one_box
 from utils.torch_utils import load_classifier, time_synchronized
 from utils.cut_barcode import getWarp
 from flask_server import app
+from utils.read_code import read_barcode
+from model_obj.doi_tuong import DoiTuong
 
+
+dict_code = {}
+dict_tracking = {}
 
 
 def detect(src_path, img_size,save_img=False):
@@ -23,9 +28,8 @@ def detect(src_path, img_size,save_img=False):
         ('rtsp://', 'rtmp://', 'http://'))
 
     # Directories
-    save_dir = Path(increment_path(Path('flask_server/static/detect') / 'exp', exist_ok=False))  # increment run
+    save_dir = Path(increment_path(Path(app.config['SAVE_IMAGES_PATH']) / 'exp', exist_ok=False))  # increment run
     (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
-    (save_dir / 'bbox').mkdir(parents=True, exist_ok=True)  # make dir
 
     # Initialize
     set_logging()
@@ -40,11 +44,6 @@ def detect(src_path, img_size,save_img=False):
     if half:
         model.half()  # to FP16
 
-    # Second-stage classifier
-    classify = False
-    if classify:
-        modelc = load_classifier(name='resnet101', n=2)  # initialize
-        modelc.load_state_dict(torch.load('weights/resnet101.pt', map_location=device)['model']).to(device).eval()
 
     # Set Dataloader
     vid_path, vid_writer = None, None
@@ -58,15 +57,13 @@ def detect(src_path, img_size,save_img=False):
 
     # Get names and colors
     names = model.module.names if hasattr(model, 'module') else model.names
-    colors = [[random.randint(0, 255) for _ in range(3)] for _ in names]
+    colors = [[random.randint(0, 222) for _ in range(3)] for _ in names]
 
     # Run inference
     if device.type != 'cpu':
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     t0 = time.time()
-    frame = 0
-    for path, img, im0s, vid_cap in dataset:
-        frame += 1
+    for path, img, im0s, vid_cap, frame in dataset:
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -81,9 +78,6 @@ def detect(src_path, img_size,save_img=False):
         pred = non_max_suppression(pred, 0.3, 0.45, classes=None, agnostic=False)
         t2 = time_synchronized()
 
-        # Apply Classifier
-        if classify:
-            pred = apply_classifier(pred, modelc, img, im0s)
 
         # Process detections
         for i, det in enumerate(pred):  # detections per image
@@ -94,7 +88,6 @@ def detect(src_path, img_size,save_img=False):
 
             p = Path(p)  # to Path
             save_path = str(save_dir / p.name)  # img.jpg
-            save_path_bbox = str(save_dir / 'bbox' / p.name).replace('.','_frame%s.'%frame)  # bbox.jpg
 
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
             s += '%gx%g ' % img.shape[2:]  # print string
@@ -108,9 +101,12 @@ def detect(src_path, img_size,save_img=False):
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
+
+                # list code in frame
+                list_id = []
                 # Write results
                 img_copy = im0.copy()
-                ii = 0
+               
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
@@ -120,12 +116,20 @@ def detect(src_path, img_size,save_img=False):
 
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
-                        wi, he, p1, p2, p3, p4 = plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
+                        dt = DoiTuong(label.split(' ')[0], xyxy)
+                        dt_image = getWarp(img_copy, dt.toBbox(), dt.width, dt.height)
+                        dt.setID(read_barcode(dt_image))
 
                         # cut box
-                        save_path_cut = save_path_bbox.replace('.', '_bbox_%s.'%ii)
-                        getWarp(img_copy, [p1, p2, p3, p4], wi, he, save_path_cut)
-                    ii += 1
+                        dt.setImage(dt_image)
+                        list_id.append(dt)
+                        plot_one_box(dt.position, im0, label=dt.id, color=colors[int(cls)], line_thickness=3)
+                        
+
+                list_id = make_order(list_id)
+                # list_id = tracking(list_id, img_copy.shape[1])
+                for dt in list_id:
+                    add_to_dict(dt)
 
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
@@ -140,6 +144,11 @@ def detect(src_path, img_size,save_img=False):
                 if dataset.mode == 'image':
                     cv2.imwrite(save_path, im0)
                 else:  # 'video'
+                    path = source.replace('.mp4', '.jpg')
+                    path = path.replace('\\videos\\', '\\images\\')
+                    paths = path.rsplit('.')
+                    path = paths[0] + '_%s'%(frame+1) + '.' + paths[1]
+                    cv2.imwrite(path, im0)
                     if vid_path != save_path:  # new video
                         vid_path = save_path
                         if isinstance(vid_writer, cv2.VideoWriter):
@@ -158,7 +167,86 @@ def detect(src_path, img_size,save_img=False):
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
-    return save_path
+    return save_path, return_result()
+
+
+
+def make_order(codes):
+    return  sorted(codes, key=lambda dt: dt.position[0])
+
+
+def tracking(list_doituong, width_frame):
+    real_key = 0
+    list_confirm = []
+    for i in range(len(list_doituong)):
+        key = i+1
+        list_doituong[i].tracking = key
+        if key in dict_tracking:
+            if dict_tracking[key] == 'anonymus':
+                dict_tracking[key] = list_doituong[i].id
+            elif dict_tracking[key] != list_doituong[i].id:
+                if list_doituong[i].id != 'anonymus':
+                    list_id = list(dict_tracking.values())
+                    list_key = list(dict_tracking.keys())
+                    if list_id.__contains__(list_doituong[i].id):
+                        index = list_id.index(list_doituong[i].id)
+                        real_key = abs( list_key[index] - key )
+                        dict_tracking[real_key+key] = list_doituong[i].id
+                        list_doituong[i].tracking = real_key+key
+                else:
+                    list_confirm.append(i)
+
+        else:
+            dict_tracking[key] = list_doituong[i].id
+
+    for i in list_confirm:
+        list_doituong[i].tracking = i + 1 + real_key
+
+    return list_doituong
+    
+
+def add_to_dict(doituong):
+    if doituong.id != 'anonymus':
+        if not list(dict_code.keys()).__contains__(doituong.id):
+            dict_code[doituong.id] = doituong
+        
+
+def isDrawler(str):
+    start = str[:2]
+    end = str[-2:]
+    if start == 'KS' and end == '00':
+        return 1
+    if start == 'KS' and end == '99':
+        return 2
+    return 0
+
+
+def return_result():
+    result = {}
+    current_drawler = []
+    temp = []
+
+    for key in dict_code.keys():
+        if isDrawler(key) == 0:
+            if not current_drawler:
+                temp.append(key)
+            else:
+                result[current_drawler[-1]].append(key)
+        elif isDrawler(key) == 1:
+            current_drawler.append(key)
+            result[key] = []
+            
+        elif isDrawler(key) == 2:
+            if current_drawler:
+                current_drawler.pop(0)
+            if temp:
+                tmp_key = key[:-2] + '00'
+                try:
+                    result[tmp_key].extend(temp)
+                except:
+                    result[tmp_key] = temp
+                temp = []
+    return result
 
 
 # Namespace(

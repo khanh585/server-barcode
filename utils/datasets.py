@@ -141,6 +141,7 @@ class LoadImages:  # for inference
         self.nf = ni + nv  # number of files
         self.video_flag = [False] * ni + [True] * nv
         self.mode = 'image'
+        self.frame = -1
         if any(videos):
             self.new_video(videos[0])  # new video
         else:
@@ -188,7 +189,7 @@ class LoadImages:  # for inference
         img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
         img = np.ascontiguousarray(img)
 
-        return path, img, img0, self.cap
+        return path, img, img0, self.cap, self.frame
 
     def new_video(self, path):
         self.frame = 0
@@ -326,7 +327,7 @@ class LoadStreams:  # multiple IP or RTSP cameras
         img = img[:, :, :, ::-1].transpose(0, 3, 1, 2)  # BGR to RGB, to bsx3x416x416
         img = np.ascontiguousarray(img)
 
-        return self.sources, img, img0, None
+        return self.sources, img, img0, None, self.count
 
     def __len__(self):
         return 0  # 1E12 frames = 32 streams at 30 FPS for 30 years

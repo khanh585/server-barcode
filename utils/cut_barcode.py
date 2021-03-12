@@ -13,7 +13,7 @@ def reOrder(myPoints):
 
     return myNewPoints
 
-def getWarp(img, biggest, wiImg, heImg, save_path_bbox):
+def getWarp(img, biggest, wiImg, heImg, save_path_bbox = None):
     try:
         if len(biggest) != 0:
             biggest = reOrder(np.array(biggest))
@@ -22,8 +22,10 @@ def getWarp(img, biggest, wiImg, heImg, save_path_bbox):
             matrix = cv2.getPerspectiveTransform(pts1, pts2)
             imgOutput = cv2.warpPerspective(img, matrix, (wiImg, heImg))
             
-            if str(save_path_bbox).__contains__('mp4'):
-                save_path_bbox = save_path_bbox.replace('mp4','jpg')
-            cv2.imwrite(save_path_bbox, imgOutput)
+            if save_path_bbox:
+                if str(save_path_bbox).__contains__('mp4'):
+                    save_path_bbox = save_path_bbox.replace('mp4','jpg')
+                cv2.imwrite(save_path_bbox, imgOutput)
+            return imgOutput
     except Exception as e:
         print(e)

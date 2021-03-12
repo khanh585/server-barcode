@@ -1,5 +1,6 @@
 
 from utils.torch_utils import select_device
+from utils.upload_file import init_storage
 from models.experimental import attempt_load
 import torch
 import os
@@ -17,10 +18,14 @@ from flask import Flask
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = r'flask_server\storage\uploads'
+app.config['FOLDER_LABEL'] = r'flask_server\storage\labels'
 app.config['WEIGHT_FILES'] = r'flask_server\weights\last.pt'
+app.config['SAVE_IMAGES_PATH'] = r'flask_server\static\detect'
+
 app.config['MODEL'] = model
 app.config['DEVICE'] = device
+app.config['FIREBASE_STORAGE'] = init_storage()
 
-from flask_server.api.route import todo
-app.register_blueprint(todo)
+from flask_server.api.route import detect
+app.register_blueprint(detect)
 
