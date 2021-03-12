@@ -8,7 +8,7 @@ import traceback
 import threading 
 from werkzeug.utils import secure_filename
 from flask_server.detect import detect as detect_ai
-from flask_server.train import call_train
+from flask_server.train import call_trains
 from flask_server import app
 import glob
 import random
@@ -56,9 +56,11 @@ def save_file(file):
 
 
 @detect.route('/upload', methods=['POST'])
+@cross_origin()
 def upload_file():
     if request.method == 'POST':
         try:
+
             # check if the post request has the file part
             if 'files' not in request.files:
                 return "File Empty", 401
@@ -127,26 +129,6 @@ def copy_file_label(file_path):
             name = filename.replace('.', '_%s.'%r)
             path_label = os.path.join(app.config['FOLDER_LABEL'], name)
             shutil.copyfile(path, path_label)
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
 
 
 
