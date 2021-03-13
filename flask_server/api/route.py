@@ -75,12 +75,6 @@ def upload_file():
                     return 'File name is empty', 401
                 else:
                     save_path, file_type = save_file(file)
-                    # if file_type == 'videos':
-                    #         save_path = set_fps(save_path, 2, '_edit')
-                    #         file_path = resize_video(save_path, (1280, 720),'_papv')
-                    #         token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
-                    #         link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
-                    # return link, 200
 
                     if save_path != '':
                         if file_type == 'videos':
@@ -90,7 +84,6 @@ def upload_file():
                             file_path = resize_video(file_path, (1280, 720),'_papv')
                         token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
                         link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
-                         
                         # copy_file_label(file_path)
                         list_result.append({'link':link, 'list_code':list_barcode})
                     else:
