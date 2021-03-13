@@ -246,6 +246,7 @@ def return_result():
                 except:
                     result[tmp_key] = temp
                 temp = []
+    result = [{"drawler":k, "books":v} for k,v in a.items()]
     return result
 
 

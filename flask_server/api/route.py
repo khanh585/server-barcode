@@ -8,12 +8,12 @@ import traceback
 import threading 
 from werkzeug.utils import secure_filename
 from flask_server.detect import detect as detect_ai
-from flask_server.train import call_trains
 from flask_server import app
 import glob
 import random
 import shutil
 from utils.render_video import set_fps, resize_video
+from flask_cors import cross_origin
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 detect = Blueprint('detect', __name__, url_prefix='/')
@@ -75,6 +75,13 @@ def upload_file():
                     return 'File name is empty', 401
                 else:
                     save_path, file_type = save_file(file)
+                    # if file_type == 'videos':
+                    #         save_path = set_fps(save_path, 2, '_edit')
+                    #         file_path = resize_video(save_path, (1280, 720),'_papv')
+                    #         token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
+                    #         link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
+                    # return link, 200
+
                     if save_path != '':
                         if file_type == 'videos':
                             save_path = set_fps(save_path, 2, '_edit')
@@ -85,25 +92,16 @@ def upload_file():
                         link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
                          
                         # copy_file_label(file_path)
-                        result = {'link':link, 'list_code':list_barcode}
+                        list_result.append({'link':link, 'list_code':list_barcode})
                     else:
                         return 'Server Error', 500
-            return result, 200
+            return jsonify(list_result), 200
         except Exception as e:
             traceback.print_exc()
             return "Server Error", 403
 
 
-@detect.route('/train', methods=['POST'])
-def train_model():
-    if request.method == 'POST':
-        try:
-            distribute_data()
-            t1 = threading.Thread(target=call_train)
-            t1.run()
-        except Exception as e:
-            traceback.print_exc()
-            return "Server Error", 403
+
 
 
 def copy_file_label(file_path):
