@@ -240,14 +240,14 @@ def return_result():
             else:
                 result[current_drawler[-1]].append(key)
         elif isDrawler(key) == 1:
-            current_drawler.append(key)
-            result[key] = []
+            current_drawler.append(key[:-2])
+            result[key[:-2]] = []
             
         elif isDrawler(key) == 2:
             if current_drawler:
                 current_drawler.pop(0)
             if temp:
-                tmp_key = key[:-2] + '00'
+                tmp_key = key[:-2]
                 try:
                     result[tmp_key].extend(temp)
                 except:
