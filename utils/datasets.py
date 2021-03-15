@@ -303,7 +303,6 @@ class LoadStreams:  # multiple IP or RTSP cameras
         while cap.isOpened() and self.allowStreams[index]:
             n += 1
             # _, self.imgs[index] = cap.read()
-            print('thread %s'%index)
             cap.grab()
             if n == 4:  # read every 4th frame
                 success, im = cap.retrieve()
