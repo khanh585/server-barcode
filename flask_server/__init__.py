@@ -28,6 +28,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['MODEL'] = model
 app.config['DEVICE'] = device
 app.config['FIREBASE_STORAGE'] = init_storage()
+app.config['STREAM'] = False
+app.config['CAP_VIDEO'] = None
+
 
 from flask_server.api.route import detect
 app.register_blueprint(detect)

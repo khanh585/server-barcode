@@ -18,6 +18,7 @@ from utils.read_code import read_barcode
 from model_obj.doi_tuong import DoiTuong
 
 
+
 dict_code = {}
 dict_tracking = {}
 
@@ -64,6 +65,10 @@ def detect(src_path, img_size,save_img=False):
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     t0 = time.time()
     for path, img, im0s, vid_cap, frame in dataset:
+
+        if not app.config["STREAM"]:
+            dataset.stopStream(0)
+            break
        
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -137,8 +142,9 @@ def detect(src_path, img_size,save_img=False):
 
             # Stream results
             if view_img:
-                cv2.imshow(str(p), im0)
-                cv2.waitKey(1)  # 1 millisecond
+                cv2.imwrite('stream/demo.jpg', im0)
+                # cv2.imshow(str(p), im0)
+                # cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
             if save_img:

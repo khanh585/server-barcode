@@ -24,6 +24,7 @@ from utils.general import xyxy2xywh, xywh2xyxy, xywhn2xyxy, xyn2xy, segment2box,
     clean_str
 from utils.torch_utils import torch_distributed_zero_first
 
+
 # Parameters
 help_url = 'https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data'
 img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng', 'webp']  # acceptable image suffixes
@@ -235,7 +236,7 @@ class LoadWebcam:  # for inference
             while True:
                 n += 1
                 self.cap.grab()
-                if n % 30 == 0:  # skip frames
+                if n % 35 == 0:  # skip frames
                     ret_val, img0 = self.cap.retrieve()
                     if ret_val:
                         break
@@ -263,6 +264,7 @@ class LoadStreams:  # multiple IP or RTSP cameras
         self.mode = 'stream'
         self.img_size = img_size
         self.stride = stride
+        self.allowStreams = []
 
         if os.path.isfile(sources):
             with open(sources, 'r') as f:
@@ -282,9 +284,11 @@ class LoadStreams:  # multiple IP or RTSP cameras
             h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             fps = cap.get(cv2.CAP_PROP_FPS) % 100
             _, self.imgs[i] = cap.read()  # guarantee first frame
-            thread = Thread(target=self.update, args=([i, cap]), daemon=True)
+            thread = Thread(target=self.update, args=([i, cap,]), daemon=True)
             print(f' success ({w}x{h} at {fps:.2f} FPS).')
+            self.allowStreams.append(True)
             thread.start()
+            
         print('')  # newline
 
         # check for common shapes
@@ -296,16 +300,19 @@ class LoadStreams:  # multiple IP or RTSP cameras
     def update(self, index, cap):
         # Read next stream frame in a daemon thread
         n = 0
-        while cap.isOpened():
+        while cap.isOpened() and self.allowStreams[index]:
             n += 1
             # _, self.imgs[index] = cap.read()
+            print('thread %s'%index)
             cap.grab()
             if n == 4:  # read every 4th frame
                 success, im = cap.retrieve()
                 self.imgs[index] = im if success else self.imgs[index] * 0
                 n = 0
             time.sleep(0.01)  # wait time
+        self.allowStreams[index] = False
 
+        
     def __iter__(self):
         self.count = -1
         return self
@@ -331,6 +338,9 @@ class LoadStreams:  # multiple IP or RTSP cameras
 
     def __len__(self):
         return 0  # 1E12 frames = 32 streams at 30 FPS for 30 years
+    
+    def stopStream(self, index):
+        self.allowStreams[index] = False
 
 
 def img2label_paths(img_paths):

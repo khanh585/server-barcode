@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, Blueprint
+from flask import render_template, request, redirect, Blueprint, Response
 from flask import jsonify
 import torch
 from IPython.display import Image, clear_output
@@ -13,14 +13,17 @@ import glob
 import random
 import shutil
 from utils.render_video import set_fps, resize_video
+from utils.read_code import read_barcode
 from flask_cors import cross_origin
+import cv2
+from time import sleep
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 detect = Blueprint('detect', __name__, url_prefix='/')
 
 @detect.route('/', methods=['POST','GET'])
 def index():
-    return render_template('upload.html')
+    return render_template('index.html')
 
 
 def detect_barcode(src_path):
@@ -94,9 +97,6 @@ def upload_file():
             return "Server Error", 403
 
 
-
-
-
 def copy_file_label(file_path):
     print('=======',file_path)
     path_split = file_path.split('\\')
@@ -121,10 +121,6 @@ def copy_file_label(file_path):
             path_label = os.path.join(app.config['FOLDER_LABEL'], name)
             shutil.copyfile(path, path_label)
 
-
-
-    
-    
 
 def check_file_type(filename):
     return filename.split('.')[-1].lower()
@@ -164,3 +160,28 @@ def distribute_data():
 
 def get_filename_from_path(file_path):
     return file_path.rsplit('\\')
+
+
+@detect.route('/stream')
+@cross_origin()
+def stream():
+    app.config["STREAM"] = True
+    t1 = threading.Thread(target=detect_barcode, args=('0',))
+    t1.start()
+    return Response(gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+def gen():
+    while app.config["STREAM"]:
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + open('stream/demo.jpg', 'rb').read() + b'\r\n')
+        sleep(1.2)
+
+
+@detect.route('/stop-stream', methods=['GET'])
+@cross_origin()
+def stop_stream():
+    app.config['CAP_VIDEO'] = None
+    app.config['STREAM'] = False
+    return "OK", 200
+
