@@ -81,7 +81,7 @@ def upload_file():
 
                     if save_path != '':
                         if file_type == 'videos':
-                            save_path = set_fps(save_path, 2, '_edit')
+                            save_path = set_fps(save_path, 7, '_edit')
                         file_path, list_barcode = detect_barcode(save_path)
                         if file_type == 'videos':
                             file_path = resize_video(file_path, (1280, 720),'_papv')
@@ -98,7 +98,6 @@ def upload_file():
 
 
 def copy_file_label(file_path):
-    print('=======',file_path)
     path_split = file_path.split('\\')
     filename = path_split[-1]
     file_type = check_file_type(filename)
@@ -106,7 +105,6 @@ def copy_file_label(file_path):
 
     path_split[-1] = 'labels'
     label_dir = '\\'.join(path_split)
-    print(label_dir)
     
     if file_type != 'mp4':
         path = os.path.join(label_dir, filename)

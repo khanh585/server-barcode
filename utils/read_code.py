@@ -154,13 +154,23 @@ def read_barcode(img):
         text = process_error(img)
     return confirm_code(text)
 
+
+
 def confirm_code(code):
-    if len(code) == 8:
-        st = code[:2]
-        ed = code[2:]
-        if code.isalnum():
+    if code.isalnum():
+        if len(code) == 8:
+            st = code[:2]
+            ed = code[2:]
+            if st.isupper() and ed.isdecimal() and ed[-2:] in ['99','00']:
+              return code
+        if len(code) == 7:
+            st = code[0]
+            ed = code[1:]
             if st.isupper():
                 if ed.isdecimal():
-                    return code
+                    sum = 0
+                    for i in ed[:-2]:
+                        sum += int(i)
+                    if sum == int(ed[-2:]):
+                        return code
     return ''
-            

@@ -19,11 +19,12 @@ from model_obj.doi_tuong import DoiTuong
 
 
 
-dict_code = {}
-dict_tracking = {}
+
 
 
 def detect(src_path, img_size,save_img=False):
+    dict_code = {}
+
     source, view_img, save_txt, imgsz = src_path, False, True, img_size
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://'))
@@ -66,7 +67,7 @@ def detect(src_path, img_size,save_img=False):
     t0 = time.time()
     for path, img, im0s, vid_cap, frame in dataset:
 
-        if not app.config["STREAM"]:
+        if not app.config["STREAM"] and app.config["CAP_VIDEO"] != None:
             dataset.stopStream(0)
             break
        
@@ -135,7 +136,7 @@ def detect(src_path, img_size,save_img=False):
                 list_id = make_order(list_id)
                 # list_id = tracking(list_id, img_copy.shape[1])
                 for dt in list_id:
-                    add_to_dict(dt)
+                    add_to_dict(dict_code, dt)
 
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
@@ -174,7 +175,12 @@ def detect(src_path, img_size,save_img=False):
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
-    return save_path, return_result()
+    i = 0
+    for k in dict_code.keys():
+        print(i,k)
+        i += 1
+
+    return save_path, return_result(dict_code)
 
 
 
@@ -182,40 +188,14 @@ def make_order(codes):
     return  sorted(codes, key=lambda dt: dt.position[0])
 
 
-def tracking(list_doituong, width_frame):
-    real_key = 0
-    list_confirm = []
-    for i in range(len(list_doituong)):
-        key = i+1
-        list_doituong[i].tracking = key
-        if key in dict_tracking:
-            if dict_tracking[key] == 'anonymus':
-                dict_tracking[key] = list_doituong[i].id
-            elif dict_tracking[key] != list_doituong[i].id:
-                if list_doituong[i].id != 'anonymus':
-                    list_id = list(dict_tracking.values())
-                    list_key = list(dict_tracking.keys())
-                    if list_id.__contains__(list_doituong[i].id):
-                        index = list_id.index(list_doituong[i].id)
-                        real_key = abs( list_key[index] - key )
-                        dict_tracking[real_key+key] = list_doituong[i].id
-                        list_doituong[i].tracking = real_key+key
-                else:
-                    list_confirm.append(i)
 
-        else:
-            dict_tracking[key] = list_doituong[i].id
-
-    for i in list_confirm:
-        list_doituong[i].tracking = i + 1 + real_key
-
-    return list_doituong
     
 
-def add_to_dict(doituong):
+def add_to_dict(dict_code, doituong):
     if doituong.id != 'anonymus':
         if not list(dict_code.keys()).__contains__(doituong.id):
             dict_code[doituong.id] = doituong
+    return dict_code
         
 
 def isDrawler(str):
@@ -228,7 +208,7 @@ def isDrawler(str):
     return 0
 
 
-def return_result():
+def return_result(dict_code):
     result = {}
     current_drawler = []
     temp = []
