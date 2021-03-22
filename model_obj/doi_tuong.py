@@ -1,7 +1,7 @@
 class DoiTuong:
 
-    def __init__(self, name, position):
-        self.name = name
+    def __init__(self, position):
+        self.name = ''
         self.position = position
 
         c1, c2 = (int(self.position[0]), int(self.position[1])), (int(self.position[2]), int(self.position[3]))

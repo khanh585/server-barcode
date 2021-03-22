@@ -124,8 +124,9 @@ def detect(src_path, img_size,save_img=False):
 
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
-                        dt = DoiTuong(label.split(' ')[0], xyxy)
+                        dt = DoiTuong(xyxy)
                         dt_image = getWarp(img_copy, dt.toBbox(), dt.width, dt.height)
+                        dt.name = read_barcode(dt_image)
 
                         # cut box
                         dt.setImage(dt_image)
@@ -139,6 +140,7 @@ def detect(src_path, img_size,save_img=False):
             print(f'{s}Done. ({t2 - t1:.3f}s)')
 
             list_dt = make_order(list_dt)
+            list_dt = clearEmpty([dt.name for dt in list_dt])
             datas.append(list_dt)
 
             # Stream results
@@ -181,6 +183,13 @@ def detect(src_path, img_size,save_img=False):
 
 def make_order(list_doituong):
     return  sorted(list_doituong, key=lambda dt: dt.position[0])
+
+def clearEmpty(list_dt):
+    result = []
+    for i in list_dt:
+        if i != '':
+            result.append(i)
+    return result
 
 
 # Namespace(

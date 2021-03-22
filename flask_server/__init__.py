@@ -14,6 +14,15 @@ real_path = os.path.realpath('')
 weight_path = os.path.join(real_path, r'flask_server\\weights\last.pt')
 model = attempt_load(weight_path, map_location=device) 
 
+# create folder
+newpath = os.path.join(real_path, r'flask_server\storage\uploads\videos')  
+if not os.path.exists(newpath):
+    os.makedirs(newpath)
+
+newpath = os.path.join(real_path, r'flask_server\storage\uploads\images')  
+if not os.path.exists(newpath):
+    os.makedirs(newpath)
+
 from flask import Flask
 
 

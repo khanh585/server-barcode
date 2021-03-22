@@ -74,7 +74,6 @@ def putBookToDrawer(datas):
         
         if len(cur_drawer) == 2:
             pre_drawer = cur_drawer.pop(0)
-
         # temp
         if tmp:
             temp.extend(tmp)
@@ -84,15 +83,16 @@ def putBookToDrawer(datas):
                         tmp.pop(tmp.index(i))
 
         # right
-        if cur_drawer[0] in drawers:
-            drawers[cur_drawer[0]].extend(right)
-            drawers[cur_drawer[0]].extend(temp)
-            temp = []
-        else:
-            drawers[cur_drawer[0]] = right
+        if cur_drawer:
+            if cur_drawer[0] in drawers:
+                drawers[cur_drawer[0]].extend(right)
+                drawers[cur_drawer[0]].extend(temp)
+                temp = []
+            else:
+                drawers[cur_drawer[0]] = right
 
         # left
-        if left:
+        if left and pre_drawer != '':
             drawers[pre_drawer].extend(left)
 
     for key in drawers.keys():
