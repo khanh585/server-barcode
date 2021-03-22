@@ -15,6 +15,7 @@ from utils.torch_utils import load_classifier, time_synchronized
 from utils.cut_barcode import getWarp
 from flask_server import app
 from utils.read_code import read_barcode
+from utils.bot_drawer import returnResult
 from model_obj.doi_tuong import DoiTuong
 
 
@@ -23,7 +24,6 @@ from model_obj.doi_tuong import DoiTuong
 
 
 def detect(src_path, img_size,save_img=False):
-    dict_code = {}
 
     source, view_img, save_txt, imgsz = src_path, False, True, img_size
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
@@ -65,6 +65,8 @@ def detect(src_path, img_size,save_img=False):
     if device.type != 'cpu':
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     t0 = time.time()
+
+    datas = []
     for path, img, im0s, vid_cap, frame in dataset:
 
         if not app.config["STREAM"] and app.config["CAP_VIDEO"] != None:
@@ -110,10 +112,9 @@ def detect(src_path, img_size,save_img=False):
 
 
                 # list code in frame
-                list_id = []
                 # Write results
                 img_copy = im0.copy()
-               
+                list_dt = []
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
@@ -125,21 +126,20 @@ def detect(src_path, img_size,save_img=False):
                         label = f'{names[int(cls)]} {conf:.2f}'
                         dt = DoiTuong(label.split(' ')[0], xyxy)
                         dt_image = getWarp(img_copy, dt.toBbox(), dt.width, dt.height)
-                        dt.setID(read_barcode(dt_image))
 
                         # cut box
                         dt.setImage(dt_image)
-                        list_id.append(dt)
-                        plot_one_box(dt.position, im0, label=dt.id, color=colors[int(cls)], line_thickness=3)
+                        list_dt.append(dt)
+                        plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=3)
                         
+            
 
-                list_id = make_order(list_id)
-                # list_id = tracking(list_id, img_copy.shape[1])
-                for dt in list_id:
-                    add_to_dict(dict_code, dt)
 
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
+
+            list_dt = make_order(list_dt)
+            datas.append(list_dt)
 
             # Stream results
             if view_img:
@@ -175,66 +175,12 @@ def detect(src_path, img_size,save_img=False):
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
-    i = 0
-    for k in dict_code.keys():
-        print(i,k)
-        i += 1
 
-    return save_path, return_result(dict_code)
+    return save_path, returnResult(datas)
 
 
-
-def make_order(codes):
-    return  sorted(codes, key=lambda dt: dt.position[0])
-
-
-
-    
-
-def add_to_dict(dict_code, doituong):
-    if doituong.id != 'anonymus':
-        if not list(dict_code.keys()).__contains__(doituong.id):
-            dict_code[doituong.id] = doituong
-    return dict_code
-        
-
-def isDrawler(str):
-    start = str[:2]
-    end = str[-2:]
-    if start == 'KS' and end == '00':
-        return 1
-    if start == 'KS' and end == '99':
-        return 2
-    return 0
-
-
-def return_result(dict_code):
-    result = {}
-    current_drawler = []
-    temp = []
-
-    for key in dict_code.keys():
-        if isDrawler(key) == 0:
-            if not current_drawler:
-                temp.append(key)
-            else:
-                result[current_drawler[-1]].append(key)
-        elif isDrawler(key) == 1:
-            current_drawler.append(key[:-2])
-            result[key[:-2]] = []
-            
-        elif isDrawler(key) == 2:
-            if current_drawler:
-                current_drawler.pop(0)
-            if temp:
-                tmp_key = key[:-2]
-                try:
-                    result[tmp_key].extend(temp)
-                except:
-                    result[tmp_key] = temp
-                temp = []
-    result = [{"drawler":k, "books":v} for k,v in result.items()]
-    return result
+def make_order(list_doituong):
+    return  sorted(list_doituong, key=lambda dt: dt.position[0])
 
 
 # Namespace(
