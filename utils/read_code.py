@@ -1,4 +1,4 @@
-import cv2
+import cv2 as cv2
 import numpy as np 
 import glob
 from pyzbar.pyzbar import decode
@@ -104,6 +104,11 @@ def rotate_img(img):
         images.append(img)
         img = cv2.rotate(img, cv2.ROTATE_180)
         images.append(img)
+    else:
+        img = cv2.rotate(img, cv2.ROTATE_180)
+        images.append(img)
+     
+
     return images
 
 

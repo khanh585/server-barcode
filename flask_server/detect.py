@@ -101,6 +101,7 @@ def detect(src_path, img_size,save_img=False):
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
             s += '%gx%g ' % img.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
+            list_dt = []
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
@@ -114,7 +115,7 @@ def detect(src_path, img_size,save_img=False):
                 # list code in frame
                 # Write results
                 img_copy = im0.copy()
-                list_dt = []
+                
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
@@ -131,7 +132,7 @@ def detect(src_path, img_size,save_img=False):
                         # cut box
                         dt.setImage(dt_image)
                         list_dt.append(dt)
-                        plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=3)
+                        plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=5)
                         
             
 
@@ -144,21 +145,21 @@ def detect(src_path, img_size,save_img=False):
             datas.append(list_dt)
 
             # Stream results
-            if view_img:
-                cv2.imwrite('stream/demo.jpg', im0)
-                # cv2.imshow(str(p), im0)
-                # cv2.waitKey(1)  # 1 millisecond
+            # if view_img:
+            #     cv2.imwrite('stream/demo.jpg', im0)
+            #     # cv2.imshow(str(p), im0)
+            #     # cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
             if save_img:
                 if dataset.mode == 'image':
                     cv2.imwrite(save_path, im0)
                 else:  # 'video'
-                    path = source.replace('.mp4', '.jpg')
-                    path = path.replace('\\videos\\', '\\images\\')
-                    paths = path.rsplit('.')
-                    path = paths[0] + '_%s'%(frame+1) + '.' + paths[1]
-                    cv2.imwrite(path, im0)
+                    # path = source.replace('.mp4', '.jpg')
+                    # path = path.replace('\\videos\\', '\\images\\')
+                    # paths = path.rsplit('.')
+                    # path = paths[0] + '_%s'%(frame+1) + '.' + paths[1]
+                    # cv2.imwrite(path, im0)
                     if vid_path != save_path:  # new video
                         vid_path = save_path
                         if isinstance(vid_writer, cv2.VideoWriter):
@@ -171,9 +172,7 @@ def detect(src_path, img_size,save_img=False):
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*fourcc), fps, (w, h))
                     vid_writer.write(im0)
 
-    if save_txt or save_img:
-        s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
-        print(f"Results saved to {save_dir}{s}")
+
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 

@@ -7,6 +7,19 @@
     <form action="stop-stream" method="GET">
       <button type="submit">Stop</button>
     </form>
-    <img src="{{ url_for('detect.stream') }}">
+    <video width="320" controls>
+      <source src="D:\capstone\server-barcode\flask_server\static\detect\exp2\DJI_0415_edit_1616538282_edit_papv.mp4" type="video/mp4">
+      <source src="movie.ogg" type="video/ogg">
+    Your browser does not support the video tag.
+    </video>
+    <video width="320" controls>
+      <source src="{{url_for('static', filename='\static\detect\exp2\DJI_0415_edit_1616538282_edit_papv.mp4')}}" type="video/mp4">
+      <source src="movie.ogg" type="video/ogg">
+    Your browser does not support the video tag.
+    </video>
+ 
+    <!-- <video src="{{url_for('static', filename='DJI_0415_edit_1616538282_edit_papv.mp4')}}"></video> -->
+    <!-- <img src="{{ url_for('static',filename='DJI_0415_edit_1616536776_edit_2.jpg') }}"> -->
+    <!-- <img src="{{ url_for('detect.stream') }}"> -->
   </body>
 </html>

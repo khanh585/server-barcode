@@ -58,7 +58,7 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
     tl = line_thickness or round(0.002 * (img.shape[0] + img.shape[1]) / 2) + 1  # line/font thickness
     color = color or [random.randint(0, 255) for _ in range(3)]
 
-    if label == 'anonymus':
+    if label == '':
         color = [0, 0, 255]
 
     c1, c2 = (int(x[0]), int(x[1])), (int(x[2]), int(x[3]))

@@ -1,6 +1,5 @@
 
 
-
 def isDrawer(st):
     head = st[:2]
     tail = st[2:]
@@ -95,8 +94,19 @@ def putBookToDrawer(datas):
         if left and pre_drawer != '':
             drawers[pre_drawer].extend(left)
 
+        
+        # print('-%s -%s -%s'%(drawer_name, cur_drawer[0], pre_drawer))
+        # print('-D %s'%data)
+        # print('-L %s'%left)
+        # print('-R %s'%right)
+        # print('-T %s'%temp)
+        # print()
+        # print()
+
     for key in drawers.keys():
         drawers[key] = list(set(drawers[key]))     
+
+    
     
     return drawers
 
@@ -105,8 +115,8 @@ def returnResult(datas):
     drawers = putBookToDrawer(datas)
     drawers = formatResult(drawers)
     drawers = runFilterDrawer(drawers)
+    print(drawers)
     return drawers
-
 
 
 
