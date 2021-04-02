@@ -123,16 +123,18 @@ def detect(src_path, img_size,save_img=False):
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
-                    if save_img or view_img:  # Add bbox to image
-                        label = f'{names[int(cls)]} {conf:.2f}'
-                        dt = DoiTuong(xyxy)
-                        dt_image = getWarp(img_copy, dt.toBbox(), dt.width, dt.height)
-                        dt.name = read_barcode(dt_image)
 
-                        # cut box
-                        dt.setImage(dt_image)
-                        list_dt.append(dt)
-                        plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=5)
+                    label = f'{names[int(cls)]} {conf:.2f}'
+                    dt = DoiTuong(xyxy)
+                    dt_image = getWarp(img_copy, dt.toBbox(), dt.width, dt.height)
+                    dt.name = read_barcode(dt_image)
+
+                    # cut box
+                    dt.setImage(dt_image)
+                    list_dt.append(dt)
+                    plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=5)
+                        
+                    # if save_img or view_img:  # Add bbox to image
                         
             
 
@@ -141,7 +143,7 @@ def detect(src_path, img_size,save_img=False):
             print(f'{s}Done. ({t2 - t1:.3f}s)')
 
             list_dt = make_order(list_dt)
-            list_dt = clearEmpty([dt.name for dt in list_dt])
+            list_dt = clearEmpty([list_dt[i].name for i in range(len(list_dt))])
             datas.append(list_dt)
 
             # Stream results

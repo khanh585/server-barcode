@@ -1,3 +1,4 @@
+datas = [['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'U238417', 'A150208'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'O789428'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311'], ['KS009000', 'T999936', 'X523010', 'U238417', 'U238417', 'A150208', 'O789428', 'Z999936'], ['KS009000', 'H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'J620311', 'Z999936'], ['KS009000', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'H071210', 'X523010', 'U238417', 'A150208', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'T999936', 'U238417', 'A150208', 'O789428', 'Z999936', 'K241209'], ['KS009000', 'U238417', 'A150208', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'U238417', 'A150208', 'O789428', 'Z999936', 'K241209'], ['KS009000', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'O789428', 'J620311', 'Z999936', 'K241209'], ['KS009000', 'Z999936', 'K241209'], ['KS009000', 'Z999936'], ['KS009000', 'Z999936', 'K241209'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000'], ['KS009000', 'H071210'], ['KS009000', 'H071210'], ['KS009000', 'H071210', 'T999936'], ['H071210', 'T999936'], ['H071210', 'T999936', 'U238417', 'A150208'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'KS001000'], ['H071210', 'T999936', 'U238417', 'A150208', 'Z999936', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'J620311', 'Z999936', 'KS001000'], ['H071210', 'T999936', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['H071210', 'T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['T999936', 'X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['X523010', 'U238417', 'A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000'], ['U238417', 'A150208', 'J620311', 'Z999936', 'K241209', 'KS001000', 'E154818'], ['A150208', 'O789428', 'J620311', 'Z999936', 'K241209', 'KS001000', 'E154818', 'A001102'], ['O789428', 'Z999936', 'K241209', 'KS001000', 'E154818', 'A001102', 'A000101'], ['J620311', 'Z999936', 'K241209', 'KS001000', 'E154818', 'A001102', 'A000101', 'H584219'], ['Z999936', 'KS001000', 'E154818', 'A001102', 'A000101', 'H584219', 'A001506'], ['E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010'], ['K241209', 'KS001000', 'E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010'], ['KS001000', 'E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523'], ['KS001000', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523'], ['KS001000', 'E154818', 'A001102', 'A000101', 'R208010', 'K140611', 'V558523', 'Q842418', 'A008513'], ['KS001000', 'A001102', 'A000101', 'H584219', 'A001506', 'H199625', 'R208010', 'K140611', 'K140611', 'V558523', 'A008513'], ['KS001000', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523', 'Q842418'], ['KS001000', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523', 'Q842418'], ['KS001000', 'A000101', 'A001506', 'R208010', 'K140611', 'V558523', 'Q842418'], ['KS001000', 'H584219', 'A001506', 'R208010', 'Q842418'], ['KS001000', 'A001102', 'A001506', 'R208010', 'Q842418'], ['KS001000', 'E154818', 'A000101', 'R208010', 'K140611'], ['KS001000', 'A001506', 'R208010', 'K140611'], ['KS001000', 'E154818', 'A001102', 'H584219', 'A001506'], ['KS001000'], ['KS001000', 'H584219'], ['KS001000'], ['KS001000', 'A001506'], ['KS001000', 'E154818'], ['KS001000', 'A000101'], ['KS001000'], ['KS001000', 'E154818', 'A000101', 'A001506'], ['KS001000', 'E154818', 'A001102'], ['KS001000', 'E154818', 'A001102', 'H584219'], ['KS001000', 'E154818', 'A001102', 'A000101', 'H584219', 'A001506'], ['E154818', 'A001102', 'A000101', 'A001506', 'R208010', 'KS002000'], ['E154818', 'A001102', 'A000101', 'A001506', 'A001506', 'KS002000'], ['E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'KS002000'], ['E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'KS002000'], ['E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'Q842418', 'KS002000'], ['E154818', 'A001102', 'A000101', 'H584219', 'A001506', 'R208010', 'A008513', 'KS002000', 'H562417'], ['E154818', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523', 'KS002000', 'H562417', 'I481518'], ['A000101', 'H584219', 'A001506', 'R208010', 'K140611', 'V558523', 'Q842418', 'A008513', 'KS002000', 'H562417', 'I481518', 'J875222'], ['H584219', 'R208010', 'K140611', 'V558523', 'Q842418', 'KS002000', 'H562417', 'I481518', 'J875222', 'A130913'], ['A001506', 'R208010', 'V558523', 'Q842418', 'A008513', 'H562417', 'I481518', 'J875222', 'A130913', 'U121206'], ['K140611', 'V558523', 'Q842418', 'A008513', 'H562417', 'I481518', 'J875222', 'A130913', 'U121206', 'A121004'], ['V558523', 'Q842418', 'A008513', 'I481518', 'J875222', 'A130913', 'U121206', 'A121004', 'M032611'], ['V558523', 'Q842418', 'A008513', 'I481518', 'J875222', 'A130913', 'U121206', 'A121004', 'M032611', 'P155819'], ['A130913', 'U121206', 'A121004', 'M032611', 'P155819'], ['U121206', 'A121004', 'M032611', 'P155819'], ['U121206', 'A121004', 'M032611', 'P155819'], ['M032611', 'P155819'], [], [], [], [], [], [], [], [], [], [], [], ['KS002000'], ['KS002000'], ['KS002000'], ['KS002000'], ['I481518'], ['H562417', 'I481518'], ['I481518'], ['H562417', 'I481518', 'J875222'], ['I481518', 'J875222'], ['KS010000'], ['KS010000'], ['U121206', 'KS010000', 'Y383115'], ['KS010000'], ['KS010000', 'Y383115'], ['P155819', 'KS010000', 'X060410'], ['C585220', 'X060410', 'L585220'], ['X060410', 'X060410', 'L585220', 'K678930'], ['X060410', 'L585220'], [], ['L585220'], [], [], [], [], [], [], [], [], [], [], [], [], [], [], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000'], ['KS010000', 'D050308', 'A000202'], ['KS010000', 'Y383115', 'D050308', 'A000202'], ['KS010000', 'A000202'], ['KS010000', 'Y383115', 'D050308', 'A000202', 'X060410'], ['KS010000', 'Y383115', 'D050308', 'A000202', 'C585220', 'X060410', 'K678930'], ['KS010000', 'Y383115', 'D050308', 'A000202', 'X060410', 'L585220', 'K678930'], ['KS010000', 'Y383115', 'A000202', 'C585220', 'X060410', 'L585220', 'K678930'], ['KS010000', 'Y383115', 'A000202', 'T170715', 'C585220', 'X060410', 'L585220', 'K678930'], ['Y383115', 'D050308', 'A000202', 'C585220', 'X060410', 'L585220', 'K678930'], ['Y383115', 'D050308', 'A000202', 'T170715', 'C585220', 'X060410', 'K678930', 'R308011'], ['Y383115', 'A000202', 'T170715', 'C585220', 'X060410', 'L585220', 'K678930']]
 
 
 def isDrawer(st):
@@ -9,28 +10,15 @@ def isDrawer(st):
 
 
 def findDrawer(data):
-    temp = []
-    left = []
-    right = []
-    drawer_index = None
-    drawer_name = ''
+    indexs = []
 
-    # check index start drawer and end drawer
+    # check indexs drawer 
     for i in range(len(data)):
         tmp = data[i]
-
         if isDrawer(tmp):
-            drawer_index = i
-            drawer_name = tmp
-    
-    if drawer_index != None:
-        left = data[:drawer_index]
-        right = data[drawer_index+1:]
-    else:
-        temp = data
-        
-    
-    return drawer_name, left, right, temp
+            indexs.append(i)
+    return indexs
+
 
     
 def formatResult(datas):
@@ -41,82 +29,198 @@ def formatResult(datas):
 
 
 def filterDrawer(dr1, dr2):
+
     for book in dr1:
         if book in dr2:
-            dr2.pop(dr2.index(book))
-    return dr2    
+            dr2.remove(book)
+    return dr1, dr2  
+  
 
 
 def runFilterDrawer(datas):
     datas.reverse()
     for i in range(len(datas)):
         if i < len(datas) - 1:
-            dr2 = filterDrawer(datas[i]['books'], datas[i+1]['books'])
-            datas[i+1]['books'] = dr2
-    datas.reverse()
+            datas[i]['books'], datas[i+1]['books'] = filterDrawer(datas[i]['books'], datas[i+1]['books'])
+
+
+    
     return datas
 
 
 def putBookToDrawer(datas):
     drawers = {}
-    cur_drawer = []
-    pre_drawer = ''
+    position_drawers = {}
+    num_drawer = 0
     temp = []
     for data in datas:
         if not data:
             continue
-        drawer_name, left, right, tmp = findDrawer(data)
-
-        
-        if  drawer_name != '' and not (drawer_name in cur_drawer):
-            cur_drawer.append(drawer_name)
-        
-        if len(cur_drawer) == 2:
-            pre_drawer = cur_drawer.pop(0)
-        # temp
-        if tmp:
-            temp.extend(tmp)
-            if pre_drawer != '':
-                for i in tmp:
-                    if i in drawers[pre_drawer]:
-                        tmp.pop(tmp.index(i))
-
-        # right
-        if cur_drawer:
-            if cur_drawer[0] in drawers:
-                drawers[cur_drawer[0]].extend(right)
-                drawers[cur_drawer[0]].extend(temp)
-                temp = []
+        indexs = findDrawer(data)
+        right = []
+        left = []
+        if not indexs:
+            temp.extend(data)
+        for i in range(len(indexs)):
+            
+            # right
+            if i < len(indexs) - 1:
+                right = data[indexs[i]+1:indexs[i+1]]
             else:
-                drawers[cur_drawer[0]] = right
+                right = data[indexs[i]+1:]
+            
+            if not data[indexs[i]] in drawers.keys():
+                drawers[data[indexs[i]]] = right
+                position_drawers[data[indexs[i]]] = num_drawer
+                num_drawer += 1
+            else:
+                drawers[data[indexs[i]]].extend(right)
 
-        # left
-        if left and pre_drawer != '':
-            drawers[pre_drawer].extend(left)
+            # left 
+            if i == 0:
+                pre_index = position_drawers[data[indexs[i]]] - 1
+                if pre_index >= 0:
+                    key_drawer = list(drawers.keys())[pre_index]
+                    left =data[:indexs[i]]
+                    drawers[key_drawer].extend(left)
+                    drawers[key_drawer].extend(temp)
+                    temp = []
 
+                
+        drawers[list(drawers.keys())[len(drawers.keys())-1]].extend(temp)
+
+
+            
+            
+       
+    for key in drawers.keys():
+        drawers[key] = list(set(drawers[key])) 
+    return drawers
+
+def test(datas):
+    drawers = {}
+    cur = ''
+    temp = []
+    for data in datas:
+        # tim ke
+        indexs = findDrawer(data)
+        index = -1
+        # xac dinh ke
+        if indexs:
+            index = indexs[0]
+            if cur != data[index]:
+                if cur != '':
+                    drawers[cur] = temp 
+                    cur = data[index]
+                    temp = []
+                    cur = data[index]
+                else:
+                    cur = data[index]
+                    drawers[cur] = []
+            temp.extend(data[index + 1:])
+        else:
+            temp.extend(data)
         
-        # print('-%s -%s -%s'%(drawer_name, cur_drawer[0], pre_drawer))
-        # print('-D %s'%data)
-        # print('-L %s'%left)
-        # print('-R %s'%right)
-        # print('-T %s'%temp)
-        # print()
-        # print()
+    drawers[cur] = temp
+
 
     for key in drawers.keys():
-        drawers[key] = list(set(drawers[key]))     
+        drawers[key] = takeFeature(drawers[key]) 
+    print(drawers)
 
+    return drawers
+
+
+def takeFeature(data):
+    result = []
+    for i in data:
+        if not i in result:
+            result.append(i)
+    return result
+
+
+def distributeFrame(frames):
+    storage = {'':[]}
+    pre = ''
+    cur = ''
+    for frame in frames:
+        indexs = findDrawer(frame)
+        if indexs:
+            index = indexs[0]
+            if cur != frame[index]:
+                if cur != '':
+                    pre = cur
+                    cur = frame[index]
+                    storage[cur] = []
+                else:
+                    cur = frame[index]
+                    storage[cur] = []
+                    storage[cur].extend(storage[pre])
+            
+        if cur != '':
+            storage[cur].append(frame)
+        storage[pre].append(frame)
+    storage.pop('')
+    return storage
+
+def getError(datas):
+    dicError = {}
+    dicDrawer = {}
+    preDrawer = ''
+
+    for key, vals in datas.items():
+        mainDrawer = key
+        dicError[mainDrawer] = []
+        dicDrawer[mainDrawer] = []
+        for val in vals:
+            indexs = findDrawer(val)
+            if indexs:
+                for index in indexs:
+                    if val[index] == mainDrawer:
+                        dicError[mainDrawer].extend(val[:index])
+                        dicDrawer[mainDrawer].extend(val)
+                        if preDrawer != '':
+                            dicError[preDrawer].extend(val[index+1:])
+                    else:
+                        dicError[mainDrawer].extend(val[index:])
+            else:
+                dicDrawer[mainDrawer].extend(val)
+        preDrawer = mainDrawer
+
+
+    for key in dicDrawer.keys():
+        dicError[key] = takeFeature(dicError[key]) 
+        dicDrawer[key] = takeFeature(dicDrawer[key])
+
+    return dicDrawer, dicError
+
+
+def filterError(drawers, errors):
+    for key in drawers.keys():
+        for err in errors[key]:
+            if err in drawers[key]:
+                drawers[key].remove(err)
+    for v in drawers.values():
+        v.pop(0)
     
     
     return drawers
+
+def printDrawer(dr):
+    pass
+
 
 
 def returnResult(datas):
-    drawers = putBookToDrawer(datas)
+    storage = distributeFrame(datas)
+    dr, err = getError(storage)
+    drawers = filterError(dr, err)
     drawers = formatResult(drawers)
     drawers = runFilterDrawer(drawers)
-    print(drawers)
+
+    # for dr in drawers:
+    #     print(dr['drawer'])
+    #     print(dr['books'])
+    #     print(len(dr['books']))
+    #     print()
     return drawers
-
-
-
