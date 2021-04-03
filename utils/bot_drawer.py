@@ -31,9 +31,9 @@ def formatResult(datas):
 
 
 def filterDrawer(dr1, dr2):
-    for book in dr2:
-        if book in dr1:
-            dr1.remove(book)
+    for book in dr1:
+        if book in dr2:
+            dr2.remove(book)
     return dr1, dr2  
   
 def filterDrawer2(dr1, dr2):
@@ -191,8 +191,8 @@ def getError(datas):
                         if preDrawer != '':
                             dicDrawer[preDrawer].extend(val[:index])
                             dicError[preDrawer].extend(val[index+1:])
-                    # else:
-                    #     dicDrawer[curDrawer].extend(val)
+                    else:
+                        dicDrawer[curDrawer].extend(val)
             else:
                 dicDrawer[curDrawer].extend(val)
         preDrawer = curDrawer
@@ -229,13 +229,13 @@ def returnResult(datas):
     t1 = drawers.copy()
     t1 = runFilterDrawer(t1)
 
-    # for dr2 in t1:
-    #     print(dr2['drawer'])
-    #     print(dr2['books'])
-    #     print(len(dr2['books']))
-    #     print()
+    for dr2 in t1:
+        print(dr2['drawer'])
+        print(dr2['books'])
+        print(len(dr2['books']))
+        print()
     
-    # print('============')
+    print('============')
     
    
 
