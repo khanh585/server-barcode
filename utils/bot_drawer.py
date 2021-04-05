@@ -186,7 +186,7 @@ def getError(datas):
             if indexs:
                 for index in indexs:
                     if val[index] == curDrawer:
-                        dicError[curDrawer].extend(val[:index])
+                        # dicError[curDrawer].extend(val[:index])
                         dicDrawer[curDrawer].extend(val[index+1:])
                         if preDrawer != '':
                             dicDrawer[preDrawer].extend(val[:index])
@@ -243,4 +243,4 @@ def returnResult(datas):
    
     return drawers
 
-returnResult(datas2)
+returnResult(datas1)
