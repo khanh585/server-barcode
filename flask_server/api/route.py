@@ -1,22 +1,30 @@
-from flask import render_template, request, redirect, Blueprint, Response
-from flask import jsonify
 import torch
-from IPython.display import Image, clear_output
 import datetime
 import os
 import traceback
 import threading 
-from werkzeug.utils import secure_filename
-from flask_server.detect import detect as detect_ai
-from flask_server import app
 import glob
 import random
 import shutil
-from utils.render_video import set_fps, resize_video
-from utils.read_code import read_barcode
-from flask_cors import cross_origin
 import cv2
 from time import sleep
+
+from IPython.display import Image, clear_output
+
+from flask_cors import cross_origin
+from flask import render_template, request, redirect, Blueprint, Response
+from flask import jsonify
+from werkzeug.utils import secure_filename
+
+from flask_server.detect import detect as detect_ai
+from flask_server import app
+
+from utils.render_video import set_fps, resize_video
+from utils.read_code import read_barcode
+from utils.azure_service import uploadVideo as azure_upload
+
+
+
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 detect = Blueprint('detect', __name__, url_prefix='/')
@@ -85,8 +93,9 @@ def upload_file():
                         file_path, list_barcode = detect_barcode(save_path)
                         if file_type == 'videos':
                             file_path = resize_video(file_path, (1280, 720),'_papv')
-                        token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
-                        link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
+                        # token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
+                        # link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
+                        link = azure_upload('videos', file_path, app.config['AZURE_CONN_STR'], file.filename)
                         # copy_file_label(file_path)
                         list_result.append({'link':link, 'list_code':list_barcode})
                     else:

@@ -227,15 +227,7 @@ def returnResult(datas):
 
 
     t1 = drawers.copy()
-    t1 = runFilterDrawer(t1)
 
-    for dr2 in t1:
-        print(dr2['drawer'])
-        print(dr2['books'])
-        print(len(dr2['books']))
-        print()
-    
-    print('============')
     
    
 
@@ -243,4 +235,4 @@ def returnResult(datas):
    
     return drawers
 
-returnResult(datas1)
+returnResult(datas2)

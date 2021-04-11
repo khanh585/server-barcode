@@ -39,6 +39,7 @@ app.config['DEVICE'] = device
 app.config['FIREBASE_STORAGE'] = init_storage()
 app.config['STREAM'] = False
 app.config['CAP_VIDEO'] = None
+app.config['AZURE_CONN_STR'] = r"BlobEndpoint=https://papv.blob.core.windows.net/;QueueEndpoint=https://papv.queue.core.windows.net/;FileEndpoint=https://papv.file.core.windows.net/;TableEndpoint=https://papv.table.core.windows.net/;SharedAccessSignature=sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacupx&se=2021-05-31T21:36:09Z&st=2021-04-10T13:36:09Z&spr=https&sig=te5dpk%2FASSegm2WRSVxQZEHX7HIB92MRFuPbv7E70Pg%3D"
 
 
 from flask_server.api.route import detect
