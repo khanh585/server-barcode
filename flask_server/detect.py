@@ -132,7 +132,7 @@ def detect(src_path, img_size,save_img=False):
                     # cut box
                     dt.setImage(dt_image)
                     list_dt.append(dt)
-                    plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=5)
+                    plot_one_box(dt.position, im0, label=dt.name, color=colors[int(cls)], line_thickness=7)
                         
                     # if save_img or view_img:  # Add bbox to image
                         
