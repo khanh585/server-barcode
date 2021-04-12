@@ -99,7 +99,7 @@ def upload_file():
                         # current date and time
                         now = datetime.now()
                         timestamp = datetime.timestamp(now)
-                        name_upload = str(file.filename).replace('.', '_'str(timestamp) + '.')
+                        name_upload = str(file.filename).replace('.', '_'+str(timestamp) + '.')
                         link = azure_upload('videos', file_path, app.config['AZURE_CONN_STR'], name_upload)
                         # copy_file_label(file_path)
                         list_result.append({'link':link, 'list_code':list_barcode})
