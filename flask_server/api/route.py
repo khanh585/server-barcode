@@ -7,7 +7,7 @@ import glob
 import random
 import shutil
 import cv2
-from time import sleep
+from datetime import datetime
 
 from IPython.display import Image, clear_output
 
@@ -95,7 +95,12 @@ def upload_file():
                             file_path = resize_video(file_path, (1280, 720),'_papv')
                         # token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
                         # link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
-                        link = azure_upload('videos', file_path, app.config['AZURE_CONN_STR'], file.filename)
+                        
+                        # current date and time
+                        now = datetime.now()
+                        timestamp = datetime.timestamp(now)
+                        name_upload = str(file.filename).replace('.', '_'str(timestamp) + '.')
+                        link = azure_upload('videos', file_path, app.config['AZURE_CONN_STR'], name_upload)
                         # copy_file_label(file_path)
                         list_result.append({'link':link, 'list_code':list_barcode})
                     else:
