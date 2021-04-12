@@ -7,7 +7,7 @@ import glob
 import random
 import shutil
 import cv2
-from datetime import datetime
+
 
 from IPython.display import Image, clear_output
 
@@ -48,6 +48,7 @@ def allowed_file(filename):
 def save_file(file):
     save_path = ''
     file_type = 'images'
+    filename = ''
     real_path = os.path.realpath('') 
     try:
         if file and allowed_file(file.filename):
@@ -63,7 +64,7 @@ def save_file(file):
     except:
          traceback.print_exc()
     finally:
-        return save_path, file_type
+        return save_path, file_type, filename
 
 
 @detect.route('/upload', methods=['POST'])
@@ -85,7 +86,7 @@ def upload_file():
                 if file.filename == '':
                     return 'File name is empty', 401
                 else:
-                    save_path, file_type = save_file(file)
+                    save_path, file_type, name_upload = save_file(file)
 
                     if save_path != '':
                         if file_type == 'videos':
@@ -96,10 +97,7 @@ def upload_file():
                         # token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
                         # link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
                         
-                        # current date and time
-                        now = datetime.now()
-                        timestamp = datetime.timestamp(now)
-                        name_upload = str(file.filename).replace('.', '_'+str(timestamp) + '.')
+                         
                         link = azure_upload('videos', file_path, app.config['AZURE_CONN_STR'], name_upload)
                         # copy_file_label(file_path)
                         list_result.append({'link':link, 'list_code':list_barcode})
