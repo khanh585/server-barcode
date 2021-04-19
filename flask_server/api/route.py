@@ -93,7 +93,7 @@ def upload_file():
                             save_path = set_fps(save_path, 7, '_edit')
                         file_path, list_barcode = detect_barcode(save_path)
                         if file_type == 'videos':
-                            file_path = resize_video(file_path, (1280, 720),'_papv')
+                            file_path = resize_video(file_path, (1280, 720),'3000k','_papv')
                         # token = app.config['FIREBASE_STORAGE'].child(file.filename).put(file_path)["downloadTokens"]
                         # link = app.config['FIREBASE_STORAGE'].child(file.filename).get_url(token)
                         
