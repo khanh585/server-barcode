@@ -1,7 +1,7 @@
 from moviepy.editor import *
 import time
 
-def set_fps(pathVideo, fps,bitrate, tail):
+def set_fps(pathVideo, fps, tail):
 
     t0 = time.time()
 
@@ -15,7 +15,7 @@ def set_fps(pathVideo, fps,bitrate, tail):
     print(time.time() - t0)
     return pathVideo
 
-def resize_video(pathVideo, size, tail):
+def resize_video(pathVideo, size, bitrate, tail):
 
     t0 = time.time()
 
