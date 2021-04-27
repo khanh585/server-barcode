@@ -222,17 +222,8 @@ def returnResult(datas):
     storage = distributeFrame(datas)
     dr, err = getError(storage)
     drawers = filterError(dr, err)
+    drawers = runFilterDrawer2(drawers)
     drawers = formatResult(drawers)
-
-
-
-    t1 = drawers.copy()
-
-    
-   
-
-
-   
     return drawers
 
 returnResult(datas2)
